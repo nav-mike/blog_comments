@@ -1,0 +1,25 @@
+type Post {
+  id: String!
+  title: String!
+  abstract: String
+  body: String
+  createdAt: String
+}
+
+type Query {
+  posts: [Post]
+  posts(createdAt: String!): [Post]
+  posts(startDate: String!, endDate: String!): [Post]
+  posts(limit: Int!, page: Int!)
+
+  post(id: String!): Post
+}
+
+type Mutation {
+  createPost(title: String!, abstract: String, body: String)
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}
