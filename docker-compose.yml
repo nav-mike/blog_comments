@@ -1,0 +1,10 @@
+web:
+  build: .
+  volumes:
+    - .:/usr/src/app
+  ports:
+    - "9000:9000"
+  command: "lein run"
+  environment:
+    VIRTUAL_HOST: "0.0.0.0"
+    CLOJURE_ENV: 'development'
