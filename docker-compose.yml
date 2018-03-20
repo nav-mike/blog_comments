@@ -3,6 +3,8 @@ services:
   db:
     image: postgres:9.2
   web:
+    stdin_open: true
+    tty: true
     build: .
     volumes:
       - .:/usr/src/app

@@ -1,5 +1,5 @@
 type Post {
-  id: String!
+  id: Int!
   title: String!
   abstract: String
   body: String
@@ -12,7 +12,7 @@ type Query {
   posts(startDate: String!, endDate: String!): [Post]
   posts(limit: Int!, page: Int!)
 
-  post(id: String!): Post
+  post(id: Int!): Post
 }
 
 type Mutation {

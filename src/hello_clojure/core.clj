@@ -6,8 +6,6 @@
             [ring.middleware.json :refer [wrap-json-body]]
             [cheshire.core :refer :all]
             [graphql-clj.executor :as executor]
-            [hello-clojure.graphql :as posts]
-            [hello-clojure.posts :as db]
             [org.httpkit.server :refer [run-server]]))
 
 ; Define GraphQL schema
@@ -35,7 +33,6 @@
 
 (defroutes app-routes
   (GET "/" []
-    (println (posts/schema))
        {:status 200
         :headers {"Content-Type" "application/json"}
         :body "Hey. POST JSON to /sum, with {\"numbers:\" [1,2,3,4]}"})

@@ -1,5 +1,6 @@
 (ns hello-clojure.graphql
-  (:require [graphql-clj.executor :as executor]))
+  (:require [graphql-clj.executor :as executor]
+            [hello-clojure.posts :as posts]))
 
 ; Load schema from .graphql
 (defn schema
