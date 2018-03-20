@@ -5,3 +5,7 @@
 (defn schema
   []
   (slurp "./src/hello_clojure/graphql/index.graphql"))
+
+; Schema string
+(def schema-str
+  (schema))

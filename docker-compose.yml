@@ -1,10 +1,16 @@
-web:
-  build: .
-  volumes:
-    - .:/usr/src/app
-  ports:
-    - "9000:9000"
-  command: "lein run"
-  environment:
-    VIRTUAL_HOST: "0.0.0.0"
-    CLOJURE_ENV: 'development'
+version: '3'
+services:
+  db:
+    image: postgres:9.2
+  web:
+    build: .
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "9000:9000"
+    command: "lein run"
+    depends_on:
+      - db
+    environment:
+      VIRTUAL_HOST: "0.0.0.0"
+      CLOJURE_ENV: 'development'

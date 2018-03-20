@@ -7,6 +7,7 @@
             [cheshire.core :refer :all]
             [graphql-clj.executor :as executor]
             [hello-clojure.graphql :as posts]
+            [hello-clojure.posts :as db]
             [org.httpkit.server :refer [run-server]]))
 
 ; Define GraphQL schema

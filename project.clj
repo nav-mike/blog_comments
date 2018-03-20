@@ -9,5 +9,7 @@
                  [ring/ring-json "0.4.0"]
                  [cheshire "5.8.0"]
                  [http-kit "2.2.0"]
+                 [korma "0.4.3"]
+                 [org.postgresql/postgresql "9.2-1002-jdbc4"]
                  [graphql-clj "0.2.6"]]
   :main hello-clojure.core)
