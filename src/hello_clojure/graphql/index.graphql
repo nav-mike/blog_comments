@@ -1,22 +1,22 @@
-type Post {
+type Comment {
   id: Int!
-  title: String!
-  abstract: String
-  body: String
-  createdAt: String
+  body: String!
+  createdOn: String
+  postId: Int!
+  author: String!
 }
 
 type Query {
-  posts: [Post]
-  posts(createdAt: String!): [Post]
-  posts(startDate: String!, endDate: String!): [Post]
-  posts(limit: Int!, page: Int!)
+  comments(postId: Int!): [Comment]
+  comments(postId: Int!, createdOn: String!): [Comment]
+  comments(postId: Int!, startDate: String!, endDate: String!): [Comment]
+  comments(postId: Int!, limit: Int!, page: Int!): [Comment]
 
-  post(id: Int!): Post
+  comment(id: Int!): Comment
 }
 
 type Mutation {
-  createPost(title: String!, abstract: String, body: String)
+  createComment(body: String!, postId: Int!, author: String!)
 }
 
 schema {
