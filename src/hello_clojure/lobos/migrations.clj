@@ -8,8 +8,7 @@
 (defmigration add-posts-table
   (up [] (create
     (tbl :posts
-      (varchar :title 100 :unique)
-      (varchar :abstract 300)
       (text :body)
-      (check :title (> (length :title) 1)))))
+      (integer :post_id)
+      (varchar :author))))
   (down [] (drop (table :posts))))
