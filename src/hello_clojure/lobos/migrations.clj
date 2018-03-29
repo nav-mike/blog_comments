@@ -4,11 +4,11 @@
   (:use (lobos [migration :only [defmigration]] core schema
                 config helpers)))
 
-; create posts table
-(defmigration add-posts-table
+; create comments table
+(defmigration add-comments-table
   (up [] (create
-    (tbl :posts
+    (tbl :comments
       (text :body)
       (integer :post_id)
       (varchar :author))))
-  (down [] (drop (table :posts))))
+  (down [] (drop (table :comments))))
