@@ -6,6 +6,6 @@
    :subprotocol "postgresql"
    :user "postgres"
    :password ""
-   :subname "//db:5432/posts_database"})
+   :subname "//db:5432/comments_database"})
 
 (open-global db)

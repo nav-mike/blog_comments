@@ -12,5 +12,6 @@
                  [korma "0.4.3"]
                  [lobos "1.0.0-beta3"]
                  [org.postgresql/postgresql "9.2-1002-jdbc4"]
+                 [org.clojure/java.jdbc "0.3.3"]
                  [graphql-clj "0.2.6"]]
   :main hello-clojure.core)
