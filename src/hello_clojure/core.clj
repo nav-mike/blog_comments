@@ -6,6 +6,7 @@
             [ring.middleware.json :refer [wrap-json-body]]
             [cheshire.core :refer :all]
             [graphql-clj.executor :as executor]
+            [hello-clojure.comments :as comments]
             [org.httpkit.server :refer [run-server]]))
 
 ; Define GraphQL schema
