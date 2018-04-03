@@ -9,9 +9,14 @@
                  [ring/ring-json "0.4.0"]
                  [cheshire "5.8.0"]
                  [http-kit "2.2.0"]
-                 [korma "0.4.3"]
+                 [toucan "1.1.4"]
+                 [clj-time "0.14.2"]
                  [lobos "1.0.0-beta3"]
                  [org.postgresql/postgresql "9.2-1002-jdbc4"]
-                 [org.clojure/java.jdbc "0.3.3"]
-                 [graphql-clj "0.2.6"]]
+                 [org.clojure/java.jdbc "0.7.5"]
+                 [graphql-clj "0.2.6"]
+                 [log4j "1.2.15" :exclusions [javax.mail/mail
+                            javax.jms/jms
+                            com.sun.jdmk/jmxtools
+                            com.sun.jmx/jmxri]]]
   :main hello-clojure.core)
