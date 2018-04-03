@@ -13,9 +13,9 @@
 
 (models/defmodel Comment :comments)
 
-(defn offset-value
-  [limit page]
-  (* limit (- page 1)))
+; Helpers
+
+(defn offset-value [limit page] (* limit (- page 1)))
 
 (def date-formatter (f/formatter "yyyy.MM.dd"))
 
@@ -25,6 +25,8 @@
 
 (defn end-date [date-string] (t/plus (date-parser date-string) (t/days 1)))
 
+(defn build-timestamp [date] (Timestamp. (. date getMillis)))
+
 ; GraphQL
 
 ; comments(postId: Int!): [Comment]
@@ -33,19 +35,15 @@
 ; comments(postId: Int!, createdOn: String!): [Comment]
 (defn where-post-date
   [post_id created_on]
-  (db/select Comment :created_on [:> (Timestamp. (. (start-date created_on)
-                                                    getMillis))
-                                  :< (Timestamp. (. (end-date created_on)
-                                                    getMillis))]
+  (db/select Comment :created_on [:> (build-timestamp (start-date created_on))
+                                  :< (build-timestamp (end-date created_on))]
                      :post_id post_id))
 
 ; comments(postId: Int!, startDate: String!, endDate: String!): [Comment]
 (defn where-post-dates
   [post_id start_date end_date]
-  (db/select Comment :created_on [:> (Timestamp. (. (date-parser start_date)
-                                                    getMillis))
-                                  :< (Timestamp. (. (date-parser end_date)
-                                                    getMillis))]
+  (db/select Comment :created_on [:> (build-timestamp (date-parser start_date))
+                                  :< (build-timestamp (date-parser end_date))]
                      :post_id post_id))
 
 ; comments(postId: Int!, limit: Int!, page: Int!): [Comment]
