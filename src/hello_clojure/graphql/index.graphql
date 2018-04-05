@@ -7,10 +7,10 @@ type Comment {
 }
 
 type Query {
-  comments(postId: Int!): [Comment]
-  comments(postId: Int!, createdOn: String!): [Comment]
-  comments(postId: Int!, startDate: String!, endDate: String!): [Comment]
-  comments(postId: Int!, limit: Int!, page: Int!): [Comment]
+  commentsByPost(postId: Int!): [Comment]
+  commentsByDate(postId: Int!, createdOn: String!): [Comment]
+  commentsByDates(postId: Int!, startDate: String!, endDate: String!): [Comment]
+  commentsWithLimit(postId: Int!, limit: Int!, page: Int!): [Comment]
 
   comment(id: Int!): Comment
 }
