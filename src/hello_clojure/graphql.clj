@@ -1,16 +1,17 @@
 (ns hello-clojure.graphql
   (:require [graphql-clj.executor :as executor]
+            [graphql-clj.schema-validator :as sv]
             [hello-clojure.comments :as comments]
             [clojure.core.match :as match]))
 
 ; Load schema from .graphql
-(defn schema
-  []
-  (slurp "./src/hello_clojure/graphql/index.graphql"))
+(defn schema [] (slurp "./src/hello_clojure/graphql/index.graphql"))
 
 ; Schema string
-(def schema-str
-  (schema))
+(def schema-str (schema))
+
+; Validate schema
+(def validated-schema (sv/validate-schema schema-str))
 
 ; methods
 (defn create-comment [args]
