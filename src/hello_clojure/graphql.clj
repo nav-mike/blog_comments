@@ -1,6 +1,7 @@
 (ns hello-clojure.graphql
   (:require [graphql-clj.executor :as executor]
-            [hello-clojure.comments :as comments]))
+            [hello-clojure.comments :as comments]
+            [clojure.core.match :as match]))
 
 ; Load schema from .graphql
 (defn schema
@@ -42,3 +43,21 @@
         limit (get args "limit")
         page (get args "page")]
     (comments/where-pagination post_id limit page)))
+
+; Resolver
+(defn resolver-fn [type_name field_name]
+  (match/match
+    [type_name field_name]
+    ["Query" "commentsByPost"] (fn [context parent args]
+                                 (comments-by-post args))
+    ["Query" "commentsByDate"] (fn [context parent args]
+                                 (comments-by-dates args))
+    ["Query" "commentsByDates"] (fn [context parent args]
+                                  (comments-by-dates args))
+    ["Query" "commentsWithLimit"] (fn [context parent args]
+                                     (comments-with-limit args))
+    ["Query" "comment"] (fn [context parent args]
+                          (comment args))
+    ["Mutation" "createComment"] (fn [context parent args]
+                                   (create-comment args))
+    :else nil))
