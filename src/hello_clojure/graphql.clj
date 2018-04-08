@@ -62,3 +62,7 @@
     ["Mutation" "createComment"] (fn [context parent args]
                                    (create-comment args))
     :else nil))
+
+; execute schema
+(defn execute [query variables operation_name]
+  (executor/execute nil validated-schema resolver-fn query variables operation_name))
