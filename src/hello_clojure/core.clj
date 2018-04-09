@@ -5,32 +5,9 @@
             [compojure.route :as route]
             [ring.middleware.json :refer [wrap-json-body]]
             [cheshire.core :refer :all]
-            [graphql-clj.executor :as executor]
-            [hello-clojure.comments :as comments]
+            [cheshire.core :as json]
+            [hello-clojure.graphql :as graphql]
             [org.httpkit.server :refer [run-server]]))
-
-; Define GraphQL schema
-(def schema-str "type User {
-    name: String
-    age: Int
-  }
-
-  type QueryRoot {
-    user: User
-  }
-
-  schema {
-    query: QueryRoot
-  }")
-
-(defn resolver-fn [type-name field-name]
-  (get-in {"QueryRoot" {"user" (fn [context parent args]
-                                {:name "test user name"
-                                 :age 30})}}
-    [type-name field-name]))
-
-(defn sum-values "sum-values" [nums]
-  (reduce + nums))
 
 (defroutes app-routes
   (GET "/" []
@@ -41,9 +18,14 @@
   (GET "/endpoint" req
     (let [query (or (get-in req [:body :query])
                     (get-in req [:params :query])
-                    [])]
+                    [])
+          variables (or (get-in req [:body :variables])
+                        (get-in req [:params :variables])
+                        [])
+          operation_name (or (get-in req [:body :operationName])
+                             (get-in req [:params :operationName]))]
       (let [response {:query query
-                      :data (executor/execute nil schema-str resolver-fn query)}]
+                      :data (graphql/execute query (json/parse-string variables) operation_name)}]
         {:status 200
          :headers {"Content-Type" "application/json"}
          :body (generate-string response)})))
@@ -51,22 +33,18 @@
   (POST "/endpoint" req
     (let [query (or (get-in req [:body :query])
                     (get-in req [:params :query])
-                    [])]
+                    [])
+          variables (or (get-in req [:body :variables])
+                        (get-in req [:params :variables])
+                        [])
+          operation_name (or (get-in req [:body :operationName])
+                             (get-in req [:params :operationName])
+                             [])]
       (let [response {:query query
-                      :data (executor/execute nil schema-str resolver-fn query)}]
+                      :data (graphql/execute query (json/parse-string variables) operation_name)}]
         {:status 200
          :headers {"Content-Type" "application/json"}
          :body (generate-string response)})))
-
-  (POST "/sum" req
-        (let [numbers (or (get-in req [:body :numbers])
-                          (get-in req [:params :numbers])
-                          [])]
-          (let [response {:numbers numbers
-                          :sum (sum-values numbers)}]
-            {:status 200
-             :headers {"Content-Type" "application/json"}
-             :body (generate-string response)})))
   (route/not-found {:status 404
                     :headers {"Content-Type" "application/json"}
                     :body (generate-string {:error "Not found!"})}))
