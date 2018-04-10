@@ -16,7 +16,7 @@ type Query {
 }
 
 type Mutation {
-  createComment(body: String!, postId: Int!, author: String!)
+  createComment(body: String!, postId: Int!, author: String!): Comment
 }
 
 schema {
