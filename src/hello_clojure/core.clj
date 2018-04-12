@@ -5,8 +5,7 @@
             [compojure.route :as route]
             [ring.middleware.json :refer [wrap-json-body]]
             [cheshire.core :refer :all]
-            [cheshire.core :as json]
-            [hello-clojure.graphql :as graphql]
+            [hello-clojure.graphql :as cgraphql]
             [org.httpkit.server :refer [run-server]]))
 
 (defroutes app-routes
@@ -25,7 +24,7 @@
           operation_name (or (get-in req [:body :operationName])
                              (get-in req [:params :operationName]))]
       (let [response {:query query
-                      :data (graphql/execute query (json/parse-string variables) operation_name)}]
+                      :data (cgraphql/execute query (parse-string variables) operation_name)}]
         {:status 200
          :headers {"Content-Type" "application/json"}
          :body (generate-string response)})))
@@ -41,7 +40,7 @@
                              (get-in req [:params :operationName])
                              [])]
       (let [response {:query query
-                      :data (graphql/execute query (json/parse-string variables) operation_name)}]
+                      :data (cgraphql/execute query (parse-string variables) operation_name)}]
         {:status 200
          :headers {"Content-Type" "application/json"}
          :body (generate-string response)})))

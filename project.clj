@@ -11,8 +11,8 @@
                  [http-kit "2.2.0"]
                  [toucan "1.1.4"]
                  [clj-time "0.14.2"]
-                 [lobos "1.0.0-beta3"]
-                 [org.postgresql/postgresql "9.2-1002-jdbc4"]
+                 [org.postgresql/postgresql "42.2.2.jre6"]
+                 [migratus "1.0.6"]
                  [org.clojure/java.jdbc "0.7.5"]
                  [graphql-clj "0.2.6"]
                  [log4j "1.2.15" :exclusions [javax.mail/mail
