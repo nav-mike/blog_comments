@@ -24,7 +24,9 @@
           operation_name (or (get-in req [:body :operationName])
                              (get-in req [:params :operationName]))]
       (let [response {:query query
-                      :data (cgraphql/execute query (parse-string variables) operation_name)}]
+                      :variables variables
+                      :operation_name operation_name
+                      :data (cgraphql/execute query variables operation_name)}]
         {:status 200
          :headers {"Content-Type" "application/json"}
          :body (generate-string response)})))
@@ -40,7 +42,9 @@
                              (get-in req [:params :operationName])
                              [])]
       (let [response {:query query
-                      :data (cgraphql/execute query (parse-string variables) operation_name)}]
+                      :variables variables
+                      :operation_name operation_name
+                      :data (cgraphql/execute query variables operation_name)}]
         {:status 200
          :headers {"Content-Type" "application/json"}
          :body (generate-string response)})))
