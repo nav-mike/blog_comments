@@ -32,6 +32,7 @@
          :body (generate-string response)})))
 
   (POST "/endpoint" req
+    (println req)
     (let [query (or (get-in req [:body :query])
                     (get-in req [:params :query])
                     [])
@@ -58,7 +59,4 @@
 
 (defn -main []
   (println (str "Running in: " (clojure-env) " mode"))
-  (let [handler (if (= (clojure-env) "production")
-                  (wrap-json-body (site app-routes))
-                  (reload/wrap-reload (wrap-json-body (site #'app-routes) {:keywords? true})))]
-  (run-server handler {:port 9000})))
+  (run-server (site #'app-routes) {:port 9000 :ip "0.0.0.0"}))
